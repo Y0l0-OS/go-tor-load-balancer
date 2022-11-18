@@ -10,3 +10,4 @@ COPY --from=0  /src/proxy/go-dispatch-proxy /usr/bin
 RUN apk add tor screen curl 
 COPY bootstrap.sh Dockerfile /
 ENTRYPOINT ash /bootstrap.sh
+EXPOSE 9050
