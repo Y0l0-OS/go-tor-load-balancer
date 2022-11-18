@@ -9,4 +9,4 @@ COPY --from=0  /src/proxy/go-dispatch-proxy /usr/bin
 #run /usr/bin/go-dispatch-proxy --help && sleep 5 
 RUN apk add tor screen curl 
 COPY bootstrap.sh Dockerfile /
-#ENTRYPOINT ash /bootstrap.sh
+ENTRYPOINT ash /bootstrap.sh
