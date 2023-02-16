@@ -9,7 +9,7 @@ echo "$phrase" > /dev/shm/.ctrlpsw
 echo $TORCOUNT > /tmp/.TOR_COUNT
 mkdir /tmp/.tordata
  for userno in $(seq 1 $TORCOUNT); do 
-    screen -dmS tor$userno /bin/ash -c '(echo "WarnUnsafeSocks 0";echo "WarnPlaintextPorts 1";echo "Log info /dev/null";echo "Log warn-err stderr";echo "DataDirectory /tmp/.tordata/tor"'$userno';echo "ControlPort 2000'$userno'";echo "SOCKSPort 1000'$userno'";echo "HashedControlPassword '$pswhash'")|tor -f /dev/stdin';
+    screen -dmS tor$userno /bin/ash -c '(echo "WarnUnsafeSocks 0";echo "WarnPlaintextPorts 1";echo "Log warn-err stderr";echo "DataDirectory /tmp/.tordata/tor"'$userno';echo "ControlPort 2000'$userno'";echo "SOCKSPort 1000'$userno'";echo "HashedControlPassword '$pswhash'")|tor -f /dev/stdin';
     done
 linecnt=0
 conncnt=0
