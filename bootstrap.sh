@@ -1,7 +1,8 @@
 mkdir /tmp/screens
 chmod 755 /tmp/screens
 phrase=$RANDOM"_asd_"$RANDOM"_wsx_"$RANDOM
-pswhash=$(tor  --hash-password  "$phrase"|grep -v "You are running Tor as ro")
+pswhash=$(tor  --hash-password  "$phrase"|grep -v -e '\[warn\]' -e '\[info\]' -e '\[notice\]' -e "Tor was compiled" -e "You are running Tor as ro") 2>/dev/null
+
 echo "control pass is $phrase"
 echo "$phrase" > /dev/shm/.ctrlpsw
 [[ -z "$TORCOUNT" ]] && TORCOUNT=6
