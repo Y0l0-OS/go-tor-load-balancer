@@ -3,7 +3,7 @@ chmod 755 /tmp/screens
 [[ -z "$TORCOUNT" ]] && TORCOUNT=6
 echo $TORCOUNT > /tmp/.TOR_COUNT
 echo -n "START:(p"
-phrase=$RANDOM"_"$((for rounds in $(seq 1 24);do tr -cd '[:alnum:]_\-.' < /dev/urandom  |head -c48;echo ;done|grep -e "_" -e "\-" -e "\."|grep ^[a-zA-Z0-9]|grep [a-zA-Z0-9]$|tail -n1))
+phrase=$RANDOM"_"$(for rounds in $(seq 1 24);do tr -cd '[:alnum:]_\-.' < /dev/urandom  |head -c48;echo ;done|grep -e "_" -e "\-" -e "\."|grep ^[a-zA-Z0-9]|grep [a-zA-Z0-9]$|tail -n1)
 echo "$phrase" > /dev/shm/.ctrlpsw &
 echo -n P
 echo -n "|INSTANCES="$TORCOUNT
