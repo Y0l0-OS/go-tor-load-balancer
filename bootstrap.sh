@@ -3,15 +3,13 @@ chmod 755 /tmp/screens
 [[ -z "$TORCOUNT" ]] && TORCOUNT=6
 echo $TORCOUNT > /tmp/.TOR_COUNT
 echo -n "START:(p"
-phrase=$RANDOM"_$((for rounds in $(seq 1 24);do tr -cd '[:alnum:]_\-.' < /dev/urandom  |head -c48;echo ;done|grep -e "_" -e "\-" -e "\."|grep ^[a-zA-Z0-9]|grep [a-zA-Z0-9]$|tail -n1))
+phrase=$RANDOM"_"$((for rounds in $(seq 1 24);do tr -cd '[:alnum:]_\-.' < /dev/urandom  |head -c48;echo ;done|grep -e "_" -e "\-" -e "\."|grep ^[a-zA-Z0-9]|grep [a-zA-Z0-9]$|tail -n1))
+echo "$phrase" > /dev/shm/.ctrlpsw &
 echo -n P
-pswhash=$(tor  --hash-password  "$phrase"|grep -v -e '\[warn\]' -e '\[info\]' -e '\[notice\]' -e "Tor was compiled" -e "You are running Tor as ro") 2>/dev/null
 echo -n "|INSTANCES="$TORCOUNT
-echo ")"
-echo "$phrase" > /dev/shm/.ctrlpsw
-
-
+echo " )"
 echo "control pass is $phrase"
+pswhash=$(tor  --hash-password  "$phrase"|grep -v -e '\[warn\]' -e '\[info\]' -e '\[notice\]' -e "Tor was compiled" -e "You are running Tor as ro") 2>/dev/null
 mkdir /tmp/.tordata
  for userno in $(seq 1 $TORCOUNT); do 
     portcont=$((20000+$userno))
