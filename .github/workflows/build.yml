@@ -70,7 +70,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY_GITHUB }}/${{ env.GH_IMAGE_NAME }}
       - name: Build and push
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: .
           registry: ghcr.io
@@ -79,7 +79,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-to: |
-                      type=registry,ref=${{ env.REGISTRY_GITHUB }}/${{ env.GH_IMAGE_NAME }}-buildcache         
+                      type=registry,ref=${{ env.REGISTRY_GITHUB }}/${{ env.GH_IMAGE_NAME }}buildcache         
           cache-from: |
                       type=registry,ref=${{ env.REGISTRY_GITHUB }}/${{ env.GH_IMAGE_NAME }}
-                      type=registry,ref=${{ env.REGISTRY_GITHUB }}/${{ env.GH_IMAGE_NAME }}-buildcache         
+                      type=registry,ref=${{ env.REGISTRY_GITHUB }}/${{ env.GH_IMAGE_NAME }}buildcache         
