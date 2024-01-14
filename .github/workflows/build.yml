@@ -79,7 +79,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-to: |
-                      type=registry,ref=${{ env.REGISTRY_GITHUB }}/${{ env.GH_IMAGE_NAME }}buildcache         
+                      type=registry,ref=${{ env.REGISTRY_GITHUB }}/${{ env.GH_IMAGE_NAME }}:buildcache         
           cache-from: |
                       type=registry,ref=${{ env.REGISTRY_GITHUB }}/${{ env.GH_IMAGE_NAME }}
-                      type=registry,ref=${{ env.REGISTRY_GITHUB }}/${{ env.GH_IMAGE_NAME }}buildcache         
+                      type=registry,ref=${{ env.REGISTRY_GITHUB }}/${{ env.GH_IMAGE_NAME }}:buildcache         
