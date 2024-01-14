@@ -2,6 +2,8 @@ name: Build
 
 # Controls when the workflow will run
 on:
+  schedule:
+    - cron: "0 13 * * 1"
   push:
     branches:
       - 'master'
@@ -76,5 +78,8 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-to: |
+                      type=registry,ref=${{ env.REGISTRY_GITHUB }}/${{ env.GH_IMAGE_NAME }}_buildcache         
           cache-from: |
                       type=registry,ref=${{ env.REGISTRY_GITHUB }}/${{ env.GH_IMAGE_NAME }}
+                      type=registry,ref=${{ env.REGISTRY_GITHUB }}/${{ env.GH_IMAGE_NAME }}_buildcache         
