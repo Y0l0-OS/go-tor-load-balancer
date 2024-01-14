@@ -1,14 +1,17 @@
 mkdir /tmp/screens
 chmod 755 /tmp/screens
-phrase=$RANDOM"_$((for rounds in $(seq 1 24);do tr -cd '[:alnum:]_\-.' < /dev/urandom  |head -c48;echo ;done|grep -e "_" -e "\-" -e "\."|grep ^[a-zA-Z0-9]|grep [a-zA-Z0-9]$|tail -n1))
-pswhash=$(tor  --hash-password  "$phrase"|grep -v -e '\[warn\]' -e '\[info\]' -e '\[notice\]' -e "Tor was compiled" -e "You are running Tor as ro") 2>/dev/null
-
-echo "control pass is $phrase"
-echo "$phrase" > /dev/shm/.ctrlpsw
 [[ -z "$TORCOUNT" ]] && TORCOUNT=6
 echo $TORCOUNT > /tmp/.TOR_COUNT
-echo INSTANCES=$TORCOUNT
+echo -n "START:(p"
+phrase=$RANDOM"_$((for rounds in $(seq 1 24);do tr -cd '[:alnum:]_\-.' < /dev/urandom  |head -c48;echo ;done|grep -e "_" -e "\-" -e "\."|grep ^[a-zA-Z0-9]|grep [a-zA-Z0-9]$|tail -n1))
+echo -n P
+pswhash=$(tor  --hash-password  "$phrase"|grep -v -e '\[warn\]' -e '\[info\]' -e '\[notice\]' -e "Tor was compiled" -e "You are running Tor as ro") 2>/dev/null
+echo -n "|INSTANCES="$TORCOUNT
+echo ")"
+echo "$phrase" > /dev/shm/.ctrlpsw
 
+
+echo "control pass is $phrase"
 mkdir /tmp/.tordata
  for userno in $(seq 1 $TORCOUNT); do 
     portcont=$((20000+$userno))
